@@ -1,0 +1,160 @@
+* {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+h1{
+    color: red;
+}
+h2{
+    color: rgb(133, 42, 42);
+}
+h3{
+    color: rgb(65, 120, 172);
+}
+h4{
+    color: rgb(115, 69, 146);
+}
+h5{
+    color: rgba(144, 81, 180, 0.301);
+}
+h6{
+    color: rgb(255, 0, 234);
+}
+
+:hover{
+    background-color: rgb(41, 40, 40) !important;
+
+}
+
+:active{
+    background-color: rgb(11, 12, 11) !important;
+}
+
+.service-btn {
+
+    background-color: rgb(113, 113, 131) !important;
+}
+
+.btn {
+
+    background-color: rgb(113, 113, 131) !important;
+}
+
+a{
+    border: 1px !important;
+}
+.bi-telephone{
+    padding: 50px !important;
+    margin: 50px !important;
+}
+
+#about{
+    margin: 50px !important;
+    padding-bottom: 50px !important;
+    padding-top: 50px !important;
+    box-shadow: 2px 2px #ff4400 !important;
+    border-radius: 30px !important;
+}
+#resume{
+    margin: 50px !important;
+    padding-bottom: 50px !important;
+    padding-top: 50px !important;
+    box-shadow: 2px 2px #ff4400 !important;
+    border-radius: 30px !important;
+}
+#portfolio{
+    margin: 50px !important;
+    padding-bottom: 50px !important;
+    padding-top: 50px !important;
+    box-shadow: 2px 2px #ff4400 !important;
+    border-radius: 30px !important;
+}
+.social-links{
+    width: 300px;
+    height: 200px;
+    transform: rotate(10deg);
+}
+.lead{
+    color: #ed7979 !important;
+}
+.typed{
+    color: #4086e6 !important;
+}
+
+
+.custom-ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.custom-ul li {
+    position: relative;
+    padding-left: 20px;
+    margin: 6px 0;
+}
+
+.custom-ul li::before {
+    content: "•";
+    color: #ff6600;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+.custom-ul.nested li::before {
+    content: "–";
+    color: #0099cc;
+    font-size: 18px;
+}
+.custom-ol {
+    list-style: none;
+    counter-reset: num-counter;
+    padding-left: 0;
+}
+
+.custom-ol li {
+    counter-increment: num-counter;
+    position: relative;
+    padding-left: 30px;
+    margin: 8px 0;
+}
+
+.custom-ol li::before {
+    content: counter(num-counter) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #0077cc;
+    font-weight: bold;
+}
+.services-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.services-table th,
+.services-table td {
+    padding: 12px 15px;
+}
+
+
+.services-table thead th {
+    background-color: #0077cc;
+    color: #1f1f1f;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+.services-table tbody tr:nth-child(odd) {
+    background-color: #1f1f1f;
+}
+
+.services-table tbody tr:hover {
+    background-color: #dfefff;
+    transition: 0.2s;
+    cursor: pointer;
+}
