@@ -27,7 +27,9 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
+   
   <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/custom.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -650,7 +652,56 @@
             <iframe width="560" height="315" src="https://www.youtube.com/embed/BoUVIhtqjAw?si=51CeZwlTd69g8Yzr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <audio src="assets/media/clock_ticking.mp3" type="audio/mpeg" controls></audio>
         </div>
+        <div>
+            <!-- NENUMERUOTAS SĄRAŠAS su nested list -->
+            <ul class="custom-ul">
+                <li>Pirmas</li>
+                <li>Antras
+                    <ul class="custom-ul nested">
+                        <li>A</li>
+                        <li>B</li>
+                    </ul>
+                </li>
+                <li>Trečias</li>
+            </ul>
 
+            <!-- NUMERUOTAS SĄRAŠAS -->
+            <ol class="custom-ol">
+                <li>Vienas</li>
+                <li>Du</li>
+                <li>Trys</li>
+            </ol>
+
+            <!-- 4×3 LENTELĖ -->
+            <table class="services-table">
+                <thead>
+                <tr>
+                    <th>Paslauga</th>
+                    <th>Aprašymas</th>
+                    <th>Kaina</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Tinklalapių kūrimas</td>
+                    <td>Asmeninių svetainių dizainas</td>
+                    <td>100 €</td>
+                </tr>
+                <tr>
+                    <td>Parduotuvės kūrimas</td>
+                    <td>Shopify / WooCommerce</td>
+                    <td>250 €</td>
+                </tr>
+                <tr>
+                    <td>SEO paslaugos</td>
+                    <td>Optimizacija paieškai</td>
+                    <td>150 €</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="service-header">
