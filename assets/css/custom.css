@@ -20,11 +20,11 @@ h5{
 h6{
     color: rgb(255, 0, 234);
 }
-
+/*
 :hover{
     background-color: rgb(41, 40, 40) !important;
-
 }
+*/
 
 :active{
     background-color: rgb(11, 12, 11) !important;
@@ -157,4 +157,180 @@ a{
     background-color: #dfefff;
     transition: 0.2s;
     cursor: pointer;
+}
+
+@keyframes animation1 {
+  from { color: rgb(174, 144, 144); }
+  50% { color: rgb(106, 106, 110); }
+  to { color: rgb(174, 144, 144); }
+}
+
+@keyframes animation2 {
+  from { background-color: rgb(221, 144, 144); }
+  50% { background-color: rgb(152, 152, 201)62, 62, 149); }
+  to { background-color: rgb(153, 197, 153); }
+}
+
+.description{
+    animation-name: animation1 !important;
+    animation-iteration-count: infinite !important;
+    animation-duration: 10s !important;
+}   
+
+.typed{
+    animation-name: animation2 !important;
+    animation-iteration-count: infinite !important;
+    animation-duration: 10s !important;
+} 
+
+#hero {
+  position: relative;
+}
+
+#hero .hero-content .background-elements{
+  opacity: 0;
+  animation: showContent 0s forwards;
+  animation-delay: 1.5s; 
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 5px solid #ddd;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, hideLoader 0s forwards;
+  animation-delay: 0s, 1.5s;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hideLoader {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes showContent {
+  to { opacity: 1; }
+}
+
+
+
+.services {
+  background: linear-gradient(-45deg, #16004b, #00444a, #7d00ff);
+background-size: 400% 400%;
+animation: gradientMove 12s ease infinite;
+
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+@keyframes rotate {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes scale {
+    0% { transform: scale(1); }
+    30% { transform: scale(3); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+    100% { transform: translateY(0); }
+}
+
+
+
+.bi.bi-dribbble{
+    animation-name: scale !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 3s !important;
+    animation-duration: 1s !important;
+}
+.bi.bi-behance{
+    animation-name: scale !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 4s !important;
+    animation-duration: 1s !important;
+}
+.bi.bi-github{
+    animation-name: scale !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 5s !important;
+    animation-duration: 1s !important;
+}
+.bi.bi-linkedin{
+    animation-name: scale !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 6s !important;
+    animation-duration: 1s !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .services {
+    animation: none;               
+    background-position: 50% 50%; 
+    background: none;
+  }
+  .description,
+  .typed {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .loader {
+    animation: none !important;
+    border-top-color: #3498db; 
+  }
+
+  #hero .loader {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  #hero .hero-content .background-elements {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  @keyframes spin {
+    from { transform: none; }
+    to { transform: none; }
+  }
+
+  @keyframes hideLoader{
+    from { opacity: 1; }
+    to   { opacity: 1; }
+  }
+  @keyframes showContent {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+  }
 }
