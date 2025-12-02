@@ -1025,18 +1025,30 @@
           <div class="col-lg-7">
             <div class="contact-form">
               <h3>Get In Touch</h3>
-              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.</p>
+              <p>Let's chat!</p>
 
               <form action="forms/contact.php" method="post" class="php-email-form">
                 <div class="row gy-4">
 
                   <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                    <input type="text" name="first-name" class="form-control" placeholder="First Name" required="">
                   </div>
 
+                    <div class="col-md-6">
+                        <input type="text" name="last-name" class="form-control" placeholder="Last Name" required="">
+                    </div>
+
                   <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required="">
                   </div>
+
+                    <div class="col-md-6 ">
+                        <input type="text" class="form-control" name="phone" placeholder="Phone Number" required="">
+                    </div>
+
+                    <div class="col-md-6 ">
+                        <input type="text" class="form-control" name="address" placeholder="Address" required="">
+                    </div>
 
                   <div class="col-12">
                     <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
@@ -1045,6 +1057,39 @@
                   <div class="col-12">
                     <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
                   </div>
+
+                    <h5>What is your gender?</h5>
+                    <div class="col-12">
+                        <input type="radio" id="Male" name="gender" required="" value="Male">
+                        <label for="Male">Male</label><br>
+                        <input type="radio" id="Female" name="gender" required="" value="Female">
+                        <label for="Female">Female</label><br>
+                    </div>
+
+                    <h5>What is your age?</h5>
+                    <div class="col-12">
+                        <input type="radio" id="age1" name="age" required="" value="18-24">
+                        <label for="age1">18-24</label><br>
+                        <input type="radio" id="age2" name="age" required="" value="25-35">
+                        <label for="age2">25-35</label><br>
+                        <input type="radio" id="age3" name="age" required="" value="36-50">
+                        <label for="age3">36-50</label><br>
+                        <input type="radio" id="age4" name="age" required="" value="51-75">
+                        <label for="age4">51-75</label><br>
+                    </div>
+
+                    <h5>How proficient are you in Javascript?</h5>
+                    <div class="col-12">
+                        <input type="radio" id="js1" name="js-level" required="" value="Complete beginner">
+                        <label for="js1">Complete beginner</label><br>
+                        <input type="radio" id="js2" name="js-level" required="" value="Intermediate">
+                        <label for="js2">Intermediate</label><br>
+                        <input type="radio" id="js3" name="js-level" required="" value="Advanced">
+                        <label for="js3">Advanced</label><br>
+                        <input type="radio" id="js4" name="js-level" required="" value="Expert">
+                        <label for="js4">Expert</label><br>
+                    </div>
+
 
                   <div class="col-12 text-center">
                     <div class="loading">Loading</div>
@@ -1056,6 +1101,9 @@
 
                 </div>
               </form>
+                <div id="form-output"
+                     style="margin-top: 30px; padding: 15px; background: grey; border-left: 5px solid #ccc;">
+                </div>
 
             </div>
           </div>
@@ -1105,6 +1153,8 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- Custom JS File -->
+  <script src="assets/js/custom.js"></script>
 
 </body>
 
