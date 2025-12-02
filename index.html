@@ -971,148 +971,84 @@
     </section><!-- /Testimonials Section -->
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
+<section id="contact" class="contact section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>Let's Work Together!</p>
+  </div>
 
-      <div class="container">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row g-4 g-lg-5">
-          <div class="col-lg-5">
-            <div class="info-box">
-              <h3>Contact Info</h3>
-              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.</p>
+    <div class="row gy-4">
 
-              <div class="info-item">
-                <div class="icon-box">
-                  <i class="bi bi-geo-alt"></i>
-                </div>
-                <div class="content">
-                  <h4>Our Location</h4>
-                  <p>A108 Adam Street</p>
-                  <p>New York, NY 535022</p>
-                </div>
-              </div>
+      <div class="col-lg-6">
+        <form class="php-email-form">
 
-              <div class="info-item">
-                <div class="icon-box">
-                  <i class="bi bi-telephone"></i>
-                </div>
-                <div class="content">
-                  <h4>Phone Number</h4>
-                  <p>+1 5589 55488 55</p>
-                  <p>+1 6678 254445 41</p>
-                </div>
-              </div>
+          <div class="row gy-4">
 
-              <div class="info-item">
-                <div class="icon-box">
-                  <i class="bi bi-envelope"></i>
-                </div>
-                <div class="content">
-                  <h4>Email Address</h4>
-                  <p>info@example.com</p>
-                  <p>contact@example.com</p>
-                </div>
-              </div>
+            <div class="col-md-6">
+              <label>Vardas</label>
+              <input type="text" class="form-control" name="firstName" required>
             </div>
-          </div>
 
-          <div class="col-lg-7">
-            <div class="contact-form">
-              <h3>Get In Touch</h3>
-              <p>Let's chat!</p>
-
-              <form action="forms/contact.php" method="post" class="php-email-form">
-                <div class="row gy-4">
-
-                  <div class="col-md-6">
-                    <input type="text" name="first-name" class="form-control" placeholder="First Name" required="">
-                  </div>
-
-                    <div class="col-md-6">
-                        <input type="text" name="last-name" class="form-control" placeholder="Last Name" required="">
-                    </div>
-
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required="">
-                  </div>
-
-                    <div class="col-md-6 ">
-                        <input type="text" class="form-control" name="phone" placeholder="Phone Number" required="">
-                    </div>
-
-                    <div class="col-md-6 ">
-                        <input type="text" class="form-control" name="address" placeholder="Address" required="">
-                    </div>
-
-                  <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                  </div>
-
-                  <div class="col-12">
-                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                  </div>
-
-                    <h5>What is your gender?</h5>
-                    <div class="col-12">
-                        <input type="radio" id="Male" name="gender" required="" value="Male">
-                        <label for="Male">Male</label><br>
-                        <input type="radio" id="Female" name="gender" required="" value="Female">
-                        <label for="Female">Female</label><br>
-                    </div>
-
-                    <h5>What is your age?</h5>
-                    <div class="col-12">
-                        <input type="radio" id="age1" name="age" required="" value="18-24">
-                        <label for="age1">18-24</label><br>
-                        <input type="radio" id="age2" name="age" required="" value="25-35">
-                        <label for="age2">25-35</label><br>
-                        <input type="radio" id="age3" name="age" required="" value="36-50">
-                        <label for="age3">36-50</label><br>
-                        <input type="radio" id="age4" name="age" required="" value="51-75">
-                        <label for="age4">51-75</label><br>
-                    </div>
-
-                    <h5>How proficient are you in Javascript?</h5>
-                    <div class="col-12">
-                        <input type="radio" id="js1" name="js-level" required="" value="Complete beginner">
-                        <label for="js1">Complete beginner</label><br>
-                        <input type="radio" id="js2" name="js-level" required="" value="Intermediate">
-                        <label for="js2">Intermediate</label><br>
-                        <input type="radio" id="js3" name="js-level" required="" value="Advanced">
-                        <label for="js3">Advanced</label><br>
-                        <input type="radio" id="js4" name="js-level" required="" value="Expert">
-                        <label for="js4">Expert</label><br>
-                    </div>
-
-
-                  <div class="col-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                    <button type="submit" class="btn">Send Message</button>
-                  </div>
-
-                </div>
-              </form>
-                <div id="form-output"
-                     style="margin-top: 30px; padding: 15px; background: grey; border-left: 5px solid #ccc;">
-                </div>
-
+            <div class="col-md-6">
+              <label>Pavardė</label>
+              <input type="text" class="form-control" name="lastName" required>
             </div>
-          </div>
 
+            <div class="col-md-6">
+              <label>El. paštas</label>
+              <input type="email" class="form-control" name="email" required>
+            </div>
+
+            <div class="col-md-6">
+              <label>Telefono numeris</label>
+              <input type="text" class="form-control" name="phone" required>
+            </div>
+
+            <!-- Klausimų įvertinimai -->
+            <div class="col-md-4">
+              <label for="q1" class="form-label">Kaip gerai išmanote programavimą? (1–10)</label>
+              <input type="number" class="form-control" id="q1" name="q1" min="1" max="10" required>
+            </div>
+
+            <div class="col-md-4">
+              <label for="q2" class="form-label">Kokie yra jūsų dizaino gebėjimai? (1–10)</label>
+              <input type="number" class="form-control" id="q2" name="q2" min="1" max="10" required>
+            </div>
+
+            <div class="col-md-4">
+              <label for="q3" class="form-label">Kaip žiauriai mėgstate kompiuterinius žaidimus? (1–10)</label>
+              <input type="number" class="form-control" id="q3" name="q3" min="1" max="10" required>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div class="loading">Loading</div>
+              <div class="error-message" style="color:red;"></div>
+              <div class="sent-message" style="color:green;">Your message has been sent. Thank you!</div>
+
+              <button type="submit">Submit</button>
+            </div>
+
+          </div>
+        </form>
+
+        <!-- Čia bus atvaizduojami rezultatai -->
+        <div id="form-output" style="margin-top:20px; font-size:1.1rem;"></div>
+
+        <!-- Sėkmingo pateikimo popup -->
+        <div id="success-popup" 
+             style="display:none; margin-top:20px; padding:15px; background:#79da79; border:1px solid #ade4af; border-radius:8px;">
+          Duomenys pateikti sėkmingai!
         </div>
 
       </div>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /Contact Section -->
+
 
   </main>
 
@@ -1154,7 +1090,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <!-- Custom JS File -->
-  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/custom.js"></script> 
 
 </body>
 
