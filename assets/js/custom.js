@@ -1,229 +1,203 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('.php-email-form');
-  if (!form) return;
 
-  const firstName = form.querySelector('input[name="firstName"]');
-  const lastName  = form.querySelector('input[name="lastName"]');
-  const email     = form.querySelector('input[name="email"]');
-  const phone     = form.querySelector('input[name="phone"]');
-  const address   = null; 
-  const q1 = form.querySelector('input[name="q1"]');
-  const q2 = form.querySelector('input[name="q2"]');
-  const q3 = form.querySelector('input[name="q3"]');
+    const startBtn = document.getElementById('start-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const difficultySelect = document.getElementById('difficulty');
+    const board = document.getElementById('game-board');
+    const movesEl = document.getElementById('moves-count');
+    const matchesEl = document.getElementById('matches-count');
+    const bestEasyEl = document.getElementById('best-easy');
+    const bestHardEl = document.getElementById('best-hard');
+    const successMessage = document.getElementById('success-message');
+    const finalStats = document.getElementById('final-stats');
 
-  const output = document.getElementById('form-output');
-  const popup = document.getElementById('success-popup');
-  const submitBtn = form.querySelector('button[type="submit"]');
+    const EMOJIS = ['🍎','🚀','🎮','🎧','🏆','🐶','🌟','🎲','💡','🔥','⚽','🎵'];
 
-  function ensureErrorEl(input){
-    if (!input) return null;
-    let el = input.parentElement.querySelector('.error-text');
-    if (!el){
-      el = document.createElement('div');
-      el.className = 'error-text';
-      el.style.color = 'red';
-      el.style.fontSize = '0.9rem';
-      el.style.marginTop = '4px';
-      input.parentElement.appendChild(el);
+    let gridCols = 4;
+    let gridRows = 3;
+    let totalCards = 12;
+    let cards = [];
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let moves = 0;
+    let matches = 0;
+    let gameStarted = false;
+
+    const LS_KEY_EASY = 'memory_best_easy';
+    const LS_KEY_HARD = 'memory_best_hard';
+
+    function loadBest() {
+        const be = localStorage.getItem(LS_KEY_EASY);
+        const bh = localStorage.getItem(LS_KEY_HARD);
+        bestEasyEl.textContent = be ? be + ' ėjimai' : '—';
+        bestHardEl.textContent = bh ? bh + ' ėjimai' : '—';
     }
-    return el;
-  }
 
-  function setInvalid(input, message){
-    if (!input) return;
-    input.classList.add('is-invalid');
-    const err = ensureErrorEl(input);
-    if (err) err.textContent = message || 'Netinkama reikšmė';
-  }
+    loadBest();
 
-  function clearInvalid(input){
-    if (!input) return;
-    input.classList.remove('is-invalid');
-    const err = input.parentElement.querySelector('.error-text');
-    if (err) err.textContent = '';
-  }
-
-  const validators = {
-    firstName: val => {
-      if (!val) return 'Vardas privalomas';
-      if (!/^[A-Za-zĄČĘĖĮŠŲŪąčęėįšųū\- ]+$/.test(val)) return 'Varde gali būti tik raidės ir brūkšnelis';
-      return '';
-    },
-    lastName: val => {
-      if (!val) return 'Pavardė privaloma';
-      if (!/^[A-Za-zĄČĘĖĮŠŲŪąčęėįšųū\- ]+$/.test(val)) return 'Pavardėje gali būti tik raidės ir brūkšnelis';
-      return '';
-    },
-    email: val => {
-      if (!val) return 'El. paštas privalomas';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return 'Neteisingas el. pašto formatas';
-      return '';
-    },
-    phone: val => {
-      const digits = (val || '').replace(/\D/g,'');
-      if (!digits) return 'Telefono numeris privalomas';
-      if (!/^6\d{7}$/.test(digits) && !/^3706\d{7}$/.test(digits)) return 'Įveskite numerį lietuvišku formatu: +370 6xx xxxxx';
-      return '';
-    },
-    q: val => {
-      if (val === '' || val === null || typeof val === 'undefined') return 'Reikšmė privaloma';
-      const n = Number(val);
-      if (Number.isNaN(n) || n < 1 || n > 10) return 'Reikšmė turi būti 1–10';
-      return '';
+    function setupGrid() {
+        const diff = difficultySelect.value;
+        if (diff === 'easy') {
+            gridCols = 4; gridRows = 3; totalCards = 12;
+        } else {
+            gridCols = 6; gridRows = 4; totalCards = 24;
+        }
+        board.innerHTML = '';
+        board.style.display = 'grid';
+        board.style.gridTemplateColumns = `repeat(${gridCols}, 1fr)`;
+        board.style.gridGap = '10px';
     }
-  };
 
-  function validateField(input){
-    if (!input) return true;
-    let name = input.getAttribute('name');
-    let value = input.value.trim();
-    let err = '';
-    if (name === 'firstName') err = validators.firstName(value);
-    else if (name === 'lastName') err = validators.lastName(value);
-    else if (name === 'email') err = validators.email(value);
-    else if (name === 'phone') err = validators.phone(value);
-    else if (['q1','q2','q3'].includes(name)) err = validators.q(value);
-    if (err) { setInvalid(input, err); return false; }
-    clearInvalid(input);
-    return true;
-  }
-
-  phone && phone.addEventListener('input', (e) => {
-    const raw = phone.value;
-    const digits = raw.replace(/\D/g,'');
-    let d = digits;
-    if (d.startsWith('370')) {
-      d = d.slice(3);
-    } else if (d.startsWith('0')) {
-      if (d.startsWith('06')) d = d.slice(1);
+    function buildDeck() {
+        const pairs = totalCards / 2;
+        const selected = EMOJIS.slice(0, pairs);
+        let deck = [];
+        selected.forEach(symbol => {
+            deck.push({symbol, id: cryptoRandomId()});
+            deck.push({symbol, id: cryptoRandomId()});
+        });
+        return shuffle(deck);
     }
-    d = d.slice(0,8);
-    let display = '';
-    if (d.length === 0) {
-      display = '';
-    } else if (d.length <= 1) {
-      display = '+370 ' + d;
-    } else if (d.length <= 3) {
-      display = '+370 ' + d.slice(0,1) + d.slice(1);
-    } else if (d.length <= 4) {
-      display = '+370 ' + d.slice(0,1) + d.slice(1,4);
-    } else {
-      const part1 = d.slice(0,1);
-      const part2 = d.slice(1,3);
-      const part3 = d.slice(3);
-      display = '+370 ' + part1 + (part2 ? part2 : '') + (part3 ? ' ' + part3 : '');
+
+    function renderBoard() {
+        setupGrid();
+        cards = buildDeck();
+        cards.forEach(card => {
+            const cardEl = document.createElement('button');
+            cardEl.className = 'memory-card';
+            cardEl.type = 'button';
+            cardEl.setAttribute('data-symbol', card.symbol);
+            cardEl.setAttribute('data-id', card.id);
+            cardEl.style.height = '100px';
+            cardEl.style.fontSize = '2rem';
+            cardEl.style.borderRadius = '8px';
+            cardEl.style.border = '1px solid #ccc';
+            cardEl.style.background = '#f8f8f8';
+            cardEl.style.display = 'flex';
+            cardEl.style.alignItems = 'center';
+            cardEl.style.justifyContent = 'center';
+
+            cardEl.innerHTML = `
+        <span class="card-front"></span>
+        <span class="card-back" style="display:none">${card.symbol}</span>
+      `;
+
+            board.appendChild(cardEl);
+            cardEl.addEventListener('click', () => onCardClick(cardEl));
+        });
     }
-    phone.value = display;
-    validateField(phone);
-    toggleSubmit();
-  });
 
-  phone && phone.addEventListener('keydown', (e) => {
-    const allowed = ['Backspace','ArrowLeft','ArrowRight','Delete','Tab','Home','End'];
-    if (allowed.includes(e.key)) return;
-    if ((e.ctrlKey || e.metaKey) && ['a','c','v','x'].includes(e.key.toLowerCase())) return;
-    if (/\d/.test(e.key)) return;
-    e.preventDefault();
-  });
+    function onCardClick(cardEl) {
+        if (!gameStarted) return;
+        if (lockBoard) return;
+        if (cardEl.classList.contains('matched')) return;
+        if (cardEl === firstCard) return;
 
-  [firstName, lastName, email, q1, q2, q3].forEach(inp => {
-    if (!inp) return;
-    inp.addEventListener('input', () => {
-      validateField(inp);
-      toggleSubmit();
-    });
-    inp.addEventListener('blur', () => validateField(inp));
-  });
+        flipCard(cardEl);
 
-  function allValid(){
-    const fields = [firstName, lastName, email, phone, q1, q2, q3];
-    let ok = true;
-    fields.forEach(f => {
-      if (!f) { ok = false; return; }
-      const v = validateField(f);
-      if (!v) ok = false;
-    });
-    return ok;
-  }
+        if (!firstCard) {
+            firstCard = cardEl;
+            return;
+        }
 
-  function toggleSubmit(){
-    if (!submitBtn) return;
-    if (allValid()) {
-      submitBtn.disabled = false;
-      submitBtn.classList.remove('disabled');
-    } else {
-      submitBtn.disabled = true;
-      submitBtn.classList.add('disabled');
+        secondCard = cardEl;
+        lockBoard = true;
+        moves++;
+        updateStats();
+
+        if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            matches++;
+            resetTurn();
+            updateStats();
+            checkWin();
+        } else {
+            setTimeout(() => {
+                unflipCard(firstCard);
+                unflipCard(secondCard);
+                resetTurn();
+            }, 900);
+        }
     }
-  }
 
-  if (submitBtn) {
-    submitBtn.type = 'button'; 
-    submitBtn.disabled = true;
-    submitBtn.classList.add('disabled');
-  }
+    function flipCard(cardEl) {
+        cardEl.querySelector('.card-front').style.display = 'none';
+        cardEl.querySelector('.card-back').style.display = 'block';
+    }
 
-  function computeAverage(a,b,c){
-    const nums = [Number(a), Number(b), Number(c)];
-    const avg = nums.reduce((s,x)=>s+x,0)/3;
-    return Math.round(avg * 10) / 10; 
-  }
+    function unflipCard(cardEl) {
+        cardEl.querySelector('.card-front').style.display = 'block';
+        cardEl.querySelector('.card-back').style.display = 'none';
+    }
 
-  function renderOutput(data){
-    if (!output) return;
-    const avg = computeAverage(data.q1, data.q2, data.q3);
-    const lines = [
-      `Vardas: ${data.firstName}`,
-      `Pavardė: ${data.lastName}`,
-      `El. paštas: ${data.email}`,
-      `Tel. Numeris: ${data.phone}`,
-      '',
-      `${data.firstName} ${data.lastName}: ${avg}`
-    ];
-    output.innerHTML = lines.map(l => `<div>${escapeHtml(l)}</div>`).join('');
-  }
+    function resetTurn() {
+        [firstCard, secondCard] = [null, null];
+        lockBoard = false;
+    }
 
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"']/g, function(m){
-      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
-    });
-  }
+    function updateStats() {
+        movesEl.textContent = moves;
+        matchesEl.textContent = matches;
+    }
 
-  if (submitBtn) {
-    submitBtn.addEventListener('click', (e) => {
-      if (!allValid()) {
-        const firstInvalid = form.querySelector('.is-invalid');
-        if (firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
-        return;
-      }
-      const data = {
-        firstName: firstName.value.trim(),
-        lastName: lastName.value.trim(),
-        email: email.value.trim(),
-        phone: phone.value.trim(),
-        q1: q1.value.trim(),
-        q2: q2.value.trim(),
-        q3: q3.value.trim(),
-      };
-      console.log('Kontaktų formos duomenys:', data);
+    function checkWin() {
+        const pairs = totalCards / 2;
+        if (matches === pairs) {
+            gameStarted = false;
+            successMessage.style.display = 'block';
+            finalStats.textContent = `${moves} ėjimai`;
+            saveBest();
+        }
+    }
 
-      renderOutput(data);
+    function saveBest() {
+        const key = difficultySelect.value === 'easy' ? LS_KEY_EASY : LS_KEY_HARD;
+        const prev = parseInt(localStorage.getItem(key)) || Infinity;
+        if (moves < prev) localStorage.setItem(key, moves);
+        loadBest();
+    }
 
-      if (popup) {
-        popup.style.display = 'block';
-        popup.setAttribute('aria-hidden','false');
-        setTimeout(()=> {
-          popup.style.display = 'none';
-          popup.setAttribute('aria-hidden','true');
-        }, 4000);
-      }
-    });
-  }
+    function resetGameState(startAfterReset=false) {
+        board.innerHTML = '';
+        firstCard = null;
+        secondCard = null;
+        lockBoard = false;
+        moves = 0;
+        matches = 0;
+        gameStarted = false;
 
-  toggleSubmit();
+        updateStats();
+        successMessage.style.display = 'none';
 
-  [firstName, lastName, email, phone, q1, q2, q3].forEach(i=> {
-    if (i) i.removeAttribute('required');
-  });
+        renderBoard();
 
+        if (startAfterReset) startGame();
+    }
+
+    function startGame() {
+        if (gameStarted) return;
+        gameStarted = true;
+    }
+
+    startBtn.addEventListener('click', () => resetGameState(true));
+    resetBtn.addEventListener('click', () => resetGameState(true));
+    difficultySelect.addEventListener('change', () => resetGameState(false));
+
+    function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function cryptoRandomId() {
+        if (crypto.randomUUID) return crypto.randomUUID();
+        return Math.random().toString(36).substring(2, 10);
+    }
+
+    renderBoard();
 });
