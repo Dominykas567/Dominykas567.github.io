@@ -1034,14 +1034,54 @@
           </div>
         </form>
 
-        <!-- Čia bus atvaizduojami rezultatai -->
         <div id="form-output" style="margin-top:20px; font-size:1.1rem;"></div>
 
-        <!-- Sėkmingo pateikimo popup -->
         <div id="success-popup" 
              style="display:none; margin-top:20px; padding:15px; background:#79da79; border:1px solid #ade4af; border-radius:8px;">
           Duomenys pateikti sėkmingai!
         </div>
+
+
+        
+<section id="game" title="Mano Žaidimas" class="game-section section" style="margin-top:20px;">
+  <div class="container" data-aos="fade-up">
+    <div class="section-header">
+      <h2>Mano Žaidimas</h2>
+      <p>Flip Card Memory</p>
+    </div>
+
+    <div class="game-controls" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">
+      <label>Sudėtingumas:</label>
+      <select id="difficulty">
+        <option value="easy">Lengvas (4×3)</option>
+        <option value="hard">Sunkus (6×4)</option>
+      </select>
+      <button id="start-btn" class="btn btn-primary">Start</button>
+      <button id="reset-btn" class="btn btn-outline">Atnaujinti</button>
+    </div>
+
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <div id="board-wrapper" style="flex:1 1 520px; min-width:260px;">
+        <div id="game-board" class="game-board" aria-live="polite"></div>
+      </div>
+
+      <aside style="width:260px;">
+        <div class="stats-box" style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+          <h4>Statistika</h4>
+          <p>Bandymai: <span id="moves-count">0</span></p>
+          <p>Sutapusios poros: <span id="matches-count">0</span></p>
+          <p>Geriausias rezultatas (Lengvas): <span id="best-easy">—</span></p>
+          <p>Geriausias rezultatas (Sunkus): <span id="best-hard">—</span></p>
+        </div>
+
+        <div id="success-message" style="display:none;margin-top:12px;padding:12px;background:#79da79;border:1px solid #b7e6b7;border-radius:8px;">
+          <strong>Laimėjote!</strong>
+          <div><span id="final-stats"></span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
 
       </div>
     </div>
@@ -1090,7 +1130,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <!-- Custom JS File -->
-  <script src="assets/js/custom.js"></script> 
+  <script src="assets/js/custom.js"></script>
 
 </body>
 
